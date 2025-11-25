@@ -1,1 +1,39 @@
+Data types tell the computer what kind of value we are storing — numbers, text, lists, True/False, etc.
+int,float,string,boolean,list,tuple,set,directory
 
+#typecasting to int
+1.a = 100
+print(type(100))  ---class 'int'
+
+#typecasting to float
+2.a = 100
+b = 1.5
+c = a+b
+print(type(b))  ---class 'float'
+
+#typecasting to float
+3.a = 100
+b = 1.5
+c = a+b
+print(type(c)) ---class 'float'
+
+#typecasting to float
+4.num = 5 + 2.0
+print(num) ---7.0
+print(type(num)) ---class 'float'
+
+#typecasting to int
+5.nun_int = int(5.7)
+print(nun_int) ---5
+print(type(nun_int))---class 'int'-
+
+#typecasting to string
+6.message = str(42)
+print(message) ---42
+print(type(message))---class 'str'
+
+#typecasting boolean
+7.is_true = bool(1)
+is_false = bool(0)
+print(is_true)
+print(type(is_true))
