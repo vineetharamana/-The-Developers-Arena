@@ -1,1 +1,87 @@
+===String Input and Output===
+name = input("enter name: ")
+print("Hello",name,sep=", ",end = "!")   OP---Hello, vineetha!
+
+===Integer Input and outpuit===
+num = int(input("Give value of num: "))
+print("You entered:",num,sep="")   OP---You entered:5
+
+===Float Input and outpuit===
+pi = float(input("pi: "))
+print("Value of Pi:",pi,sep="")    Op---Value of Pi:3.4
+
+===Specifying separate in output===
+inp = input("Enter name and age: ")
+name,age = inp.split(",")
+print("Name:",name,",Age:",age,sep="")  OP---- Enter name and age:john,25, Name:john,Age:25
+
+===End parameter in output===
+n = int(input("Enter n: "))
+print("Countdown: 5 4 3 2 1 ", end = "Blast Off")  OP---Countdown: 5 4 3 2 1 Blast Off
+
+===Arithmetic Operators===
+# 10,5
+x,y = input("Enter a and b values: ").split(",")
+a = int(x)
+b = int(y)
+print("Addition:",a+b,"Subtraction:",a-b,"Multiplication:",a*b,"Division:",a/b,sep=",")
+OP---Enter a and b values: 10,5
+Addition:,15,Subtraction:,5,Multiplication:,50,Division:,2.0
+
+===Formatting output using f-string===
+x,y = input("Enter name and age:").split(",")
+print(f"Name:{x},Age:{y} years")   OP---Enter name and age:Alice,25
+                                        Name:Alice,Age:25 years
+===finding the Sum of Two Numbers===
+# input: num1, num2
+# output: sum
+# processing num1+num2
+
+num1 = int(input())
+num2 = int(input())
+print("sum:",num1+num2,sep="")
+print(f"sum:{num1+num2}")
+output---5
+10
+sum:15
+sum:15
+
+===finding the Area of a circe===
+radius = int(input())
+a = 3.14*(radius**2)
+print("Area of the circle:",a)
+print(f"Area of the circle:{a}",)
+output---5
+Area of the circle: 78.5
+Area of the circle:78.5
+
+===solving Quadratic Equations===
+# a,b,c
+a = int(input("Give a: "))
+b = int(input("Give b: "))
+c = int(input("Give c: "))
+
+root1 = 0
+root2 = 0
+d = (b**2) - 4*a*c
+root1 = (-b + (d**(0.5)))/2*a
+root2 = (-b - (d**(0.5)))/2*a
+print(f"Roots:({root1},{root2})")
+output----Give a: 1
+Give b: -3
+Give c: 2
+Roots:(2.0,1.0)
+
+===swap the values of two variables without using a temporary variable===
+a = int(input("Give a: "))
+b = int(input("Give b: "))
+b = b+a
+a = b-a
+b = b-a
+print(f"value of a is: {a}")
+print(f"value of b is: {b}")
+output---Give a: 10
+Give b: 20
+value of a is: 20
+value of b is: 10
 
