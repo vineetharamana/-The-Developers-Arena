@@ -10,6 +10,31 @@ double_quotes="Hello world"
 multiline ="'Hello,
              world!
              Welcome"'
-
-
-
+===string indexing===
+string are ordered sequences,and you can access individual characters using indexing.python uses zero-based indexing where the first character has an index of o.
+ex:--str = "PYTHON"
+print(str[0])          
+print(str[2])
+print(str[-1])
+print(str[4])
+output:---P
+T
+N
+O
+===string slicing===
+division of string into several parts.
+===String concatenation===
+you can concatenate strings using the +operator:
+===string length===
+you can find the length of a string using the len() function:
+string1 = "Coding is fun!"
+print(len(string1)) op---14
+===string methods===
+python provides numerous built in methods for manipulating string,such as converting cases,removing whitespaces,replacing characters,splitting,joining and more.
+ex:
+===string formating===
+python supports multiple ways of formatting strings,incuding old style % formattig,str.formate(),and f-strings(formatited string literals).
+===Escape sequences===
+special character combinations that are used to represent characters that are otherwise difficult or imposiible to include directly in a string.
+print("hello\\s world")
+print("hello\\ns world")----new line
