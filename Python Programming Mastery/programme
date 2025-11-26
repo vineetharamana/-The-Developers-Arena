@@ -29,3 +29,33 @@ print(f"Number of vowels:{a+e+i+o+u}")
 output---Hello, World!
 Number of vowels:3
 
+====create a program that tackes the marks of a student in different subjects as input.Calculate the total marks and average,and then display the corresponding grade based on the average.
+m = int(input("Marks in Math: "))
+s = int(input("Marks in Science: "))
+e = int(input("Marks in English: "))
+
+total_marks = m+e+s
+average = total_marks/3
+
+percentage = (total_marks/300)*100
+grade = ""
+if percentage > 90:
+    grade = 'A'
+elif percentage > 80 and percentage<=90:
+    grade = 'B'
+elif percentage > 70 and percentage<=80:
+    grade = 'c'
+else:
+    grade = "p"
+
+print(f"Total Marks: {total_marks} \n Average Marks: {average} \n Grade: {grade}")
+output--->Marks in Math: 85
+Marks in Science: 90
+Marks in English: 78
+Total Marks: 253 
+ Average Marks: 84.33333333333333 
+ Grade: B
+
+====write a program that takes a string input from the user and checks if it is a palindrome or not.A palindrome is a word,pharase,number, or sequence of characters that reads the same backward as forward.
+
+
