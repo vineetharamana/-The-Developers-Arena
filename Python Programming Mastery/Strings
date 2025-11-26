@@ -1,0 +1,15 @@
+===Strings===
+Data type used to represent textual data.They are sequences of characters and are enclosed in either.
+single quotes('')
+double quotes("")
+triple quotes("' "' or """ """)
+===how to create string===
+you can create strings using single,double,triple quotes.Triple quotes are used for multiline strings or to include special characters like line breaks.
+single_quotes='Hello world'
+double_quotes="Hello world"
+multiline ="'Hello,
+             world!
+             Welcome"'
+
+
+
