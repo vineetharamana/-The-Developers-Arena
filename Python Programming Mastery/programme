@@ -16,3 +16,16 @@ output---->Give 1st Number: 10
 Give 2nd Number: 5
 Gvive operator: +
 Addition of 2 numbers is 15
+
+====write a program that tackes a string input from the user and counts the number of cowels(A,E,I,O,U, and their lowercase equivalents) in the string.
+s = input()
+s2 = s.lower()
+a = s2.count('a')
+e = s2.count('e')
+i = s2.count('i')
+o = s2.count('o')
+u = s2.count('u')
+print(f"Number of vowels:{a+e+i+o+u}")
+output---Hello, World!
+Number of vowels:3
+
