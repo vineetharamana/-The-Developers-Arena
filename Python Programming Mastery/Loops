@@ -19,4 +19,17 @@ for outer_var in outer_sequence:
  #code block of the outer loop
 for inner_var in inner_sequence:
  #code block of the inner loop
-
+===break===
+if during the execution of the loop python interpreter encounters break,it immediatly stops the oop execution and exits out of it.
+syntax:
+while condition:
+ #code block inside the loop
+if same_condition:
+ break #exit the loop if the condition is met
+===continue===
+continue statement is used to skip the rest of the current iteration in a loop and move to the next iteration immediately
+syntax:
+while condition:
+ #code block inside the loop
+ if some_condition:
+      continue #skip this iteration
