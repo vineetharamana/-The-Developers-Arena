@@ -110,3 +110,74 @@ else:
 
 print(leap)
 output--->2000--true,100--false
+
+===take a positive integer N as input and print all the numbers from 1 to N.
+n = int(input("Give n Value"))
+i = 1
+while i<=n:
+    print(i)
+    i +=1 # i = i+1
+output-->Give n Value5
+1
+2
+3
+4
+5
+
+====Take a positive integer N as input and calculate the sum of the first N natural numbers.
+n = int(input("Give n Value"))
+i = 1
+sum = 0
+while i<=n:
+    sum = i +sum
+    i+=1
+print(sum)
+output--->Give n Value3
+6
+
+====Take a positive integer N as input and print all the even numbers from 1 to N.
+n = int(input("Give n Value"))
+i = 1
+while i<=n:
+    if i%2 == 0:
+        print(i)
+    i+=1
+output--->Give n Value10
+2
+4
+6
+8
+10
+
+========Take a positive integer N as input and print all the odd numbers from 1 to N.
+n = int(input("Give n Value"))
+i = 1
+while i<=n:
+    if i%2 == 1:
+        print(i)
+    i+=1
+output-->Give n Value10
+1
+3
+5
+7
+9
+========Take a positive integer N as input and print the multiplication table of N from 1 to 10.
+n = int(input("Give n Value"))
+i = 1
+while i<=10:
+    print(f"{n} * {i} = {n*i}")
+    i+=1
+output--->Give n Value3
+3 * 1 = 3
+3 * 2 = 6
+3 * 3 = 9
+3 * 4 = 12
+3 * 5 = 15
+3 * 6 = 18
+3 * 7 = 21
+3 * 8 = 24
+3 * 9 = 27
+3 * 10 = 30
+
+
