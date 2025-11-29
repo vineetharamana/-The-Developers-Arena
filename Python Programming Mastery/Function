@@ -1,0 +1,25 @@
+===Function===
+function are blocks of organised,reusable codethat perform specific task.Dividing a complex problem into smaller chunks makes our program easy to understand and reuse.
+-you define a function using the def keyword,followed by the function name,parentheses(),and a colon:
+syntax
+def function_name(parameters):
+   #function body
+===function call===
+the execute a function and run the code inside it,you call the function by using its name followed by parentheses().
+syntax
+function_name(arguments)
+===parameters and arguments===
+functions can take input values known as parameters or arguments.
+parameters are defined in the function's parentheses during the function definition.
+Arguments are the actual values passed to the function when it is called
+===keyword arguments===
+you can pass arguments to a function using their names expicity, known as keyword arguments.this allows you to pass arguments in any order.
+===default arguments===
+default arguments are used to provide default values for parameters in case no value is passed during the function call.if no argument is provided for a default parameter,the default value will be used.
+===recursive function===
+base case:the base case is the condition that specifies when the function should stop calling itself and return a result directly.it acts as the stopping criterion for the recursion,preventing infinite recursion.Recursive case=
+recursive case: the recursive case is the part of the function that calls itself with a modified version of the input,leading to smaller instances of the same problem.
+===lambda function===
+is a small,one-line function that can have any number of arguments but can only have one expression.
+syntax
+lambda arguments:expression
