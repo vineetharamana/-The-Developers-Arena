@@ -180,4 +180,30 @@ output--->Give n Value3
 3 * 9 = 27
 3 * 10 = 30
 
+====Take a positive integer N as input and calculate its factorial (N!).
+n = int(input("Giv n Value: "))
+factorial = 1
+while n>0:
+    factorial = factorial * n
+    n -=1
+print(factorial)
+output--->Giv n Value: 5
+120
 
+====finding the sum of two numbers
+a = int(input())
+b = int(input())
+def add2Numbers(a,b):
+    print(a+b)
+add2Numbers(a,b)
+output-->50
+5
+15
+
+====find the Area of a Circle
+def area(r):
+    circleArea = 3.14*(r**2)
+    return circleArea
+radius = 2
+a = area(radius)
+print(a)   output---->12.56
