@@ -1,0 +1,49 @@
+===Print Debugging===
+def add(a, b):
+    print("a:", a, "b:", b)  # Debug print
+    return a + b
+print(add(5,3))   output---a:5,b:3    ,8
+
+===. Using Python’s Built-in Debugger (pdb)====
+import pdb
+
+def divide(a, b):
+    pdb.set_trace()
+    return a / b
+
+print(divide(10, 2))
+
+===Using logging Module===
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
+
+def multiply(a, b):
+    logging.debug(f"Inputs a={a}, b={b}")
+    return a * b
+
+print(multiply(5, 6))
+
+===Debugging with Breakpoint====
+def add(a, b):
+    breakpoint()  # Opens debugger
+    return a + b
+add(2, 3)
+
+===Debugging Memory Issues===
+from memory_profiler import profile
+
+@profile
+def test():
+    a = [i for i in range(100000)]
+    return a
+test()
+
+===Debugging Performance===
+import cProfile
+
+def slow_function():
+    for i in range(1000000):
+        pass
+
+cProfile.run("slow_function()")
