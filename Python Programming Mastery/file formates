@@ -1,0 +1,136 @@
+====Working with Text Files (.txt)====
+with open("sample.txt", "r") as f:
+    data = f.read()
+    print(data)
+
+=== Working with CSV Files (.csv)===
+import csv
+with open("data.csv") as f:
+    reader = csv.reader(f)
+    for row in reader:
+        print(row)
+
+===Working with JSON Files (.json)===
+import json
+
+with open("data.json") as f:
+    data = json.load(f)
+    print(data)
+Write
+python
+Copy code
+import json
+
+person = {"name": "Vineetha", "role": "DevOps Engineer"}
+
+with open("data.json", "w") as f:
+    json.dump(person, f, indent=4)
+
+=== Working with Excel Files (.xlsx)===
+You need openpyxl library:
+
+nginx
+Copy code
+pip install openpyxl
+Read
+python
+Copy code
+from openpyxl import load_workbook
+
+wb = load_workbook("data.xlsx")
+sheet = wb.active
+
+for row in sheet.iter_rows(values_only=True):
+    print(row)
+Write
+python
+Copy code
+from openpyxl import Workbook
+
+wb = Workbook()
+sheet = wb.active
+
+sheet["A1"] = "Name"
+sheet["B1"] = "Age"
+sheet.append(["Vineetha", 24])
+
+wb.save("output.xlsx")
+
+===Working with Databases (SQLite Example)===
+Built-in in Python.
+
+Create & Insert
+python
+Copy code
+import sqlite3
+
+conn = sqlite3.connect("test.db")
+cursor = conn.cursor()
+
+cursor.execute("CREATE TABLE IF NOT EXISTS users (id INTEGER, name TEXT)")
+cursor.execute("INSERT INTO users VALUES (1, 'Vineetha')")
+
+conn.commit()
+conn.close()
+Read
+python
+Copy code
+import sqlite3
+
+conn = sqlite3.connect("test.db")
+cursor = conn.cursor()
+
+cursor.execute("SELECT * FROM users")
+print(cursor.fetchall())
+
+conn.close()
+
+===Working with APIs (REST JSON Data)===
+Using requests:
+
+nginx
+Copy code
+pip install requests
+Example:
+python
+Copy code
+import requests
+
+res = requests.get("https://jsonplaceholder.typicode.com/todos/1")
+data = res.json()
+print(data)
+
+===Working with YAML Files (.yaml / .yml)===
+Used heavily in DevOps: Kubernetes, Docker Compose, GitHub Actions
+
+Install:
+
+nginx
+Copy code
+pip install pyyaml
+Read
+python
+Copy code
+import yaml
+
+with open("config.yaml") as f:
+    data = yaml.safe_load(f)
+    print(data)
+Write
+python
+Copy code
+import yaml
+
+config = {"service": "web", "replicas": 3}
+
+with open("output.yaml", "w") as f:
+    yaml.dump(config, f)
+
+===Working with Log Files (.log)===
+Common in DevOps.
+python
+Copy code
+with open("app.log") as f:
+    for line in f:
+        if "ERROR" in line:
+            print(line)
