@@ -1,1 +1,453 @@
 
+Project layout 
+project-name/
+├── main.py
+├── requirements.txt
+├── tools/
+│   ├── __init__.py
+│   ├── calculator.py
+│   ├── notes.py
+│   ├── data_manager.py
+│   ├── timer.py
+│   └── file_organizer.py
+├── utils/
+│   ├── __init__.py
+│   ├── error_handler.py
+│   └── helpers.py
+├── data/
+│   ├── notes.txt
+│   ├── sample.csv
+│   └── sample.json
+├── logs/
+│   └── app.log
+└── tests/
+    ├── test_calculator.py
+    └── test_data_manager.py
+
+requirements.txt
+pytest
+pandas
+
+
+main.py
+#!/usr/bin/env python3
+import sys
+import logging
+from tools.calculator import Calculator
+from tools.notes import NotesManager
+from tools.data_manager import DataManager
+from tools.timer import Timer
+from tools.file_organizer import FileOrganizer
+from utils.error_handler import handle_input_error
+
+logging.basicConfig(
+    filename="logs/app.log",
+    level=logging.INFO,
+    format="%(asctime)s %(levelname)s %(message)s"
+)
+
+def main_menu():
+    print("\n=== Productivity Suite ===")
+    print("1) Calculator")
+    print("2) Notes")
+    print("3) Data Manager (CSV/JSON/TXT)")
+    print("4) Timer / Stopwatch")
+    print("5) File Organizer")
+    print("0) Exit")
+
+def main():
+    calc = Calculator()
+    notes = NotesManager("data/notes.txt")
+    data_mgr = DataManager()
+    timer = Timer()
+    organizer = FileOrganizer()
+
+    while True:
+        main_menu()
+        choice = input("Choose an option: ").strip()
+        try:
+            if choice == "1":
+                expr = input("Enter expression (e.g. 2+2*3): ").strip()
+                result = calc.evaluate(expr)
+                print("Result:", result)
+                logging.info("Calculator: %s = %s", expr, result)
+            elif choice == "2":
+                print("Notes: 1) Add 2) Read 3) Search")
+                n = input("Action: ").strip()
+                if n == "1":
+                    title = input("Title: ").strip()
+                    body = input("Body: ").strip()
+                    notes.add_note(title, body)
+                    print("Saved.")
+                elif n == "2":
+                    print(notes.read_notes())
+                elif n == "3":
+                    q = input("Search query: ").strip()
+                    print(notes.search(q))
+                else:
+                    print("Unknown notes action.")
+            elif choice == "3":
+                print("Data Manager: 1) Read CSV 2) Read JSON 3) Read TXT 4) Write CSV 5) Write JSON 6) Write TXT")
+                a = input("Action: ").strip()
+                if a == "1":
+                    fn = input("CSV file path: ").strip()
+                    print(data_mgr.read_csv(fn))
+                elif a == "2":
+                    fn = input("JSON file path: ").strip()
+                    print(data_mgr.read_json(fn))
+                elif a == "3":
+                    fn = input("TXT file path: ").strip()
+                    print(data_mgr.read_txt(fn))
+                elif a == "4":
+                    fn = input("CSV file path to write: ").strip()
+                    rows_text = input("Enter rows as comma-separated values on each line (finish with empty line):\n")
+                    print("Use CTRL+D (or blank line) to finish.")
+                    lines = []
+                    while True:
+                        try:
+                            line = input()
+                        except EOFError:
+                            break
+                        if not line:
+                            break
+                        lines.append(line)
+                    data = [r.split(",") for r in lines]
+                    data_mgr.write_csv(fn, data)
+                    print("CSV written.")
+                elif a == "5":
+                    fn = input("JSON file path to write: ").strip()
+                    json_text = input("Enter JSON object/array (single line):\n")
+                    data_mgr.write_json(fn, json_text)
+                    print("JSON written.")
+                elif a == "6":
+                    fn = input("TXT file path to write: ").strip()
+                    content = input("Content:\n")
+                    data_mgr.write_txt(fn, content)
+                    print("TXT written.")
+                else:
+                    print("Unknown action.")
+            elif choice == "4":
+                print("Timer: 1) Start timer (seconds) 2) Start stopwatch 3) Stop stopwatch")
+                a = input("Action: ").strip()
+                if a == "1":
+                    secs = int(handle_input_error(input("Seconds: ").strip(), int))
+                    timer.start_timer(secs)
+                elif a == "2":
+                    timer.start_stopwatch()
+                elif a == "3":
+                    elapsed = timer.stop_stopwatch()
+                    print("Stopwatch elapsed:", elapsed)
+                else:
+                    print("Unknown timer action.")
+            elif choice == "5":
+                src = input("Source directory: ").strip()
+                organizer.organize_by_extension(src)
+                print("Organized.")
+            elif choice == "0":
+                print("Goodbye!")
+                break
+            else:
+                print("Invalid option.")
+        except Exception as e:
+            logging.exception("Unhandled exception")
+            print("Error:", e)
+
+if __name__ == "__main__":
+    main()
+
+tools/calculator.py
+# tools/calculator.py
+import ast
+import operator as op
+from utils.error_handler import safe_raise
+
+# allowed operators
+ALLOWED_OPERATORS = {
+    ast.Add: op.add,
+    ast.Sub: op.sub,
+    ast.Mult: op.mul,
+    ast.Div: op.truediv,
+    ast.Pow: op.pow,
+    ast.USub: op.neg,
+    ast.Mod: op.mod,
+    ast.FloorDiv: op.floordiv,
+}
+
+class Calculator:
+    def evaluate(self, expr: str):
+        if not expr:
+            raise ValueError("Empty expression")
+        try:
+            node = ast.parse(expr, mode='eval').body
+            return self._eval(node)
+        except Exception as e:
+            safe_raise(e, "Invalid expression")
+
+    def _eval(self, node):
+        if isinstance(node, ast.Num):  # < Py3.8
+            return node.n
+        if isinstance(node, ast.Constant):  # Py3.8+
+            return node.value
+        if isinstance(node, ast.BinOp):
+            left = self._eval(node.left)
+            right = self._eval(node.right)
+            op_type = type(node.op)
+            if op_type in ALLOWED_OPERATORS:
+                return ALLOWED_OPERATORS[op_type](left, right)
+        if isinstance(node, ast.UnaryOp):
+            op_type = type(node.op)
+            if op_type in ALLOWED_OPERATORS:
+                return ALLOWED_OPERATORS[op_type](self._eval(node.operand))
+        raise ValueError("Unsupported expression element")
+
+tools/notes.py
+# tools/notes.py
+import os
+from utils.error_handler import safe_raise
+
+class NotesManager:
+    def __init__(self, filepath="data/notes.txt"):
+        self.filepath = filepath
+        os.makedirs(os.path.dirname(self.filepath), exist_ok=True)
+
+    def add_note(self, title, body):
+        if not title:
+            raise ValueError("Title required")
+        with open(self.filepath, "a", encoding="utf-8") as f:
+            f.write(f"---\n{title}\n{body}\n")
+        return True
+
+    def read_notes(self):
+        if not os.path.exists(self.filepath):
+            return ""
+        with open(self.filepath, "r", encoding="utf-8") as f:
+            return f.read()
+
+    def search(self, query):
+        if not os.path.exists(self.filepath):
+            return []
+        results = []
+        with open(self.filepath, "r", encoding="utf-8") as f:
+            content = f.read()
+        chunks = content.split("---\n")
+        for c in chunks:
+            if query.lower() in c.lower():
+                results.append(c.strip())
+        return results
+
+tools/data_manager.py
+# tools/data_manager.py
+import os
+import json
+import csv
+from utils.error_handler import safe_raise
+
+class DataManager:
+    def read_txt(self, path):
+        if not os.path.exists(path):
+            raise FileNotFoundError(path)
+        with open(path, "r", encoding="utf-8") as f:
+            return f.read()
+
+    def write_txt(self, path, content):
+        d = os.path.dirname(path)
+        if d:
+            os.makedirs(d, exist_ok=True)
+        with open(path, "w", encoding="utf-8") as f:
+            f.write(content)
+        return True
+
+    def read_json(self, path):
+        if not os.path.exists(path):
+            raise FileNotFoundError(path)
+        with open(path, "r", encoding="utf-8") as f:
+            return json.load(f)
+
+    def write_json(self, path, json_text):
+        d = os.path.dirname(path)
+        if d:
+            os.makedirs(d, exist_ok=True)
+        try:
+            parsed = json.loads(json_text)
+        except Exception as e:
+            safe_raise(e, "Invalid JSON")
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(parsed, f, indent=2)
+        return True
+
+    def read_csv(self, path):
+        if not os.path.exists(path):
+            raise FileNotFoundError(path)
+        rows = []
+        with open(path, "r", encoding="utf-8") as f:
+            reader = csv.reader(f)
+            for r in reader:
+                rows.append(r)
+        return rows
+
+    def write_csv(self, path, rows):
+        d = os.path.dirname(path)
+        if d:
+            os.makedirs(d, exist_ok=True)
+        with open(path, "w", newline='', encoding="utf-8") as f:
+            writer = csv.writer(f)
+            for r in rows:
+                writer.writerow(r)
+        return True
+
+tools/timer.py
+# tools/timer.py
+import time
+import threading
+
+class Timer:
+    def __init__(self):
+        self._stopwatch_start = None
+        self._timer_thread = None
+
+    def start_timer(self, seconds):
+        if seconds <= 0:
+            raise ValueError("Seconds must be positive")
+        def _run():
+            time.sleep(seconds)
+            print(f"\nTimer finished ({seconds} seconds).")
+        t = threading.Thread(target=_run, daemon=True)
+        t.start()
+        self._timer_thread = t
+
+    def start_stopwatch(self):
+        self._stopwatch_start = time.time()
+        print("Stopwatch started.")
+
+    def stop_stopwatch(self):
+        if self._stopwatch_start is None:
+            raise RuntimeError("Stopwatch was not started")
+        elapsed = time.time() - self._stopwatch_start
+        self._stopwatch_start = None
+        return elapsed
+
+tools/file_organizer.py
+# tools/file_organizer.py
+import os
+import shutil
+
+class FileOrganizer:
+    def organize_by_extension(self, src_dir):
+        if not os.path.isdir(src_dir):
+            raise NotADirectoryError(src_dir)
+        for fname in os.listdir(src_dir):
+            full = os.path.join(src_dir, fname)
+            if os.path.isdir(full):
+                continue
+            ext = os.path.splitext(fname)[1].lstrip(".").lower() or "no_ext"
+            dest_dir = os.path.join(src_dir, ext)
+            os.makedirs(dest_dir, exist_ok=True)
+            shutil.move(full, os.path.join(dest_dir, fname))
+        return True
+
+utils/error_handler.py
+# utils/error_handler.py
+import logging
+
+def safe_raise(original_exception, msg=None):
+    logging.exception("safe_raise: %s", original_exception)
+    if msg:
+        raise ValueError(msg) from original_exception
+    raise original_exception
+
+def handle_input_error(value, cast_type=str):
+    try:
+        return cast_type(value)
+    except Exception as e:
+        logging.exception("Input cast failed for value=%s to %s", value, cast_type)
+        raise ValueError(f"Invalid input for type {cast_type}: {value}")
+
+utils/helpers.py
+# utils/helpers.py
+import os
+
+def ensure_dir(path):
+    d = os.path.dirname(path)
+    if d:
+        os.makedirs(d, exist_ok=True)
+
+Sample data files
+data/notes.txt
+--- 
+Sample Note
+This is a sample note body.
+
+data/sample.csv
+name,age,city
+Alice,30,Bangalore
+Bob,25,Hyderabad
+
+data/sample.json
+[
+  {"name": "Alice", "age": 30},
+  {"name": "Bob", "age": 25}
+]
+
+Basic tests (tests/)
+tests/test_calculator.py
+from tools.calculator import Calculator
+import pytest
+
+def test_simple_add():
+    c = Calculator()
+    assert c.evaluate("1+2") == 3
+
+def test_precedence():
+    c = Calculator()
+    assert c.evaluate("2+3*4") == 14
+
+def test_unary_negative():
+    c = Calculator()
+    assert c.evaluate("-5+2") == -3
+
+def test_bad_expr():
+    c = Calculator()
+    with pytest.raises(ValueError):
+        c.evaluate("import os")
+
+tests/test_data_manager.py
+import os
+import json
+from tools.data_manager import DataManager
+
+def test_write_and_read_txt(tmp_path):
+    dm = DataManager()
+    p = tmp_path / "foo.txt"
+    dm.write_txt(str(p), "hello")
+    assert dm.read_txt(str(p)) == "hello"
+
+def test_write_and_read_json(tmp_path):
+    dm = DataManager()
+    p = tmp_path / "d.json"
+    dm.write_json(str(p), json.dumps({"a":1}))
+    assert dm.read_json(str(p)) == {"a":1}
+
+def test_write_and_read_csv(tmp_path):
+    dm = DataManager()
+    p = tmp_path / "t.csv"
+    dm.write_csv(str(p), [["a","b"], ["1","2"]])
+    rows = dm.read_csv(str(p))
+    assert rows[0] == ["a","b"]
+
+How to run
+
+Create a virtual environment and install requirements:
+
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+
+
+Run the app:
+
+python main.py
+
+
+Run tests:
+
+pytest -q
