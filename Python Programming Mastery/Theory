@@ -1,1 +1,409 @@
+====Python Theory===
 
+## **1. Introduction to Python**
+
+* **Python** is a high-level, interpreted, general-purpose programming language.
+
+* Developed by **Guido van Rossum** in 1991.
+
+* Features:
+
+  * Easy to learn & readable syntax
+  * Interpreted (no compilation needed)
+  * Object-Oriented
+  * Dynamically typed
+  * Extensive standard library
+  * Cross-platform
+
+* **Uses of Python**: Web development, Data Science, Machine Learning, Automation, Scripting, AI, Game Development, etc.
+
+---
+
+## **2. Python Basics**
+
+### **2.1 Python Syntax**
+
+* Case-sensitive (`Variable` ≠ `variable`)
+* Statements end with newline (no semicolon required)
+* Indentation defines blocks (`if`, `for`, `def`)
+
+Example:
+
+```python
+if True:
+    print("Hello")
+```
+
+### **2.2 Comments**
+
+```python
+# Single-line comment
+"""
+Multi-line
+comment
+"""
+```
+
+### **2.3 Variables & Data Types**
+
+* No declaration needed
+* Dynamic typing
+
+```python
+x = 10        # int
+y = 3.14      # float
+name = "Vineetha"  # str
+is_active = True   # bool
+```
+
+---
+
+## **3. Python Data Types**
+
+| Type  | Description                         | Example          |
+| ----- | ----------------------------------- | ---------------- |
+| int   | Integer numbers                     | `10`, `-5`       |
+| float | Floating point numbers              | `3.14`, `-0.001` |
+| str   | String                              | `"Hello"`        |
+| bool  | Boolean (True/False)                | `True`           |
+| list  | Ordered, mutable collection         | `[1, 2, 3]`      |
+| tuple | Ordered, immutable collection       | `(1, 2, 3)`      |
+| set   | Unordered collection, no duplicates | `{1, 2, 3}`      |
+| dict  | Key-value pairs                     | `{"a":1, "b":2}` |
+
+---
+
+## **4. Operators**
+
+### **4.1 Arithmetic Operators**
+
+```
++  -  *  /  %  //  ** 
+```
+
+### **4.2 Comparison Operators**
+
+```
+==  !=  >  <  >=  <=
+```
+
+### **4.3 Logical Operators**
+
+```
+and  or  not
+```
+
+### **4.4 Assignment Operators**
+
+```
+=  +=  -=  *=  /=  %=  //=  **=
+```
+
+### **4.5 Membership Operators**
+
+```
+in, not in
+```
+
+### **4.6 Identity Operators**
+
+```
+is, is not
+```
+
+---
+
+## **5. Control Flow**
+
+### **5.1 Conditional Statements**
+
+```python
+if condition:
+    ...
+elif condition2:
+    ...
+else:
+    ...
+```
+
+### **5.2 Loops**
+
+**For Loop**
+
+```python
+for i in range(5):
+    print(i)
+```
+
+**While Loop**
+
+```python
+i = 0
+while i < 5:
+    print(i)
+    i += 1
+```
+
+**Loop Control**
+
+```
+break, continue, pass
+```
+
+---
+
+## **6. Functions**
+
+* Reusable blocks of code
+* Defined using `def`
+* Supports arguments, default parameters, keyword arguments, variable arguments
+
+```python
+def greet(name="Vineetha"):
+    print("Hello", name)
+    
+greet()
+greet("Alice")
+```
+
+* Return value: `return value`
+
+### **6.1 Lambda Functions**
+
+* Anonymous functions
+
+```python
+square = lambda x: x**2
+print(square(5))  # 25
+```
+
+---
+
+## **7. Data Structures**
+
+### **7.1 List**
+
+* Ordered, mutable
+
+```python
+nums = [1,2,3]
+nums.append(4)
+nums.remove(2)
+nums[0]  # access
+```
+
+### **7.2 Tuple**
+
+* Ordered, immutable
+
+```python
+t = (1,2,3)
+t[0]
+```
+
+### **7.3 Set**
+
+* Unordered, unique
+
+```python
+s = {1,2,3,3}
+s.add(4)
+```
+
+### **7.4 Dictionary**
+
+* Key-value pairs
+
+```python
+d = {"a":1, "b":2}
+d["a"] = 10
+```
+
+---
+
+## **8. String Handling**
+
+* Strings are immutable
+* String methods:
+
+```python
+s = "Hello World"
+s.lower()
+s.upper()
+s.split()
+s.replace("Hello","Hi")
+len(s)
+```
+
+* f-strings (Python 3.6+)
+
+```python
+name = "Vineetha"
+age = 25
+print(f"My name is {name} and age is {age}")
+```
+
+---
+
+## **9. Modules & Packages**
+
+* **Module**: `.py` file containing Python code
+* **Package**: folder containing `__init__.py` and multiple modules
+
+```python
+import math
+from math import sqrt
+print(sqrt(16))
+```
+
+* **Install external packages** using `pip`:
+
+```
+pip install pandas
+```
+
+---
+
+## **10. File Handling**
+
+```python
+# Open a file
+f = open("data.txt","r")   # modes: r, w, a, rb, wb
+content = f.read()
+f.close()
+
+# Using 'with' (recommended)
+with open("data.txt","w") as f:
+    f.write("Hello World")
+```
+
+* CSV, JSON, TXT can be read/written using:
+
+```python
+import csv, json
+```
+
+---
+
+## **11. Exception Handling**
+
+```python
+try:
+    x = 10 / 0
+except ZeroDivisionError:
+    print("Cannot divide by zero")
+except Exception as e:
+    print("Error:", e)
+finally:
+    print("This runs always")
+```
+
+* Raise exception: `raise ValueError("Invalid input")`
+
+---
+
+## **12. Object-Oriented Programming (OOP)**
+
+### **12.1 Class & Object**
+
+```python
+class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def greet(self):
+        print(f"Hello, I am {self.name}")
+
+p = Person("Vineetha",25)
+p.greet()
+```
+
+### **12.2 Inheritance**
+
+```python
+class Student(Person):
+    def __init__(self, name, age, grade):
+        super().__init__(name, age)
+        self.grade = grade
+```
+
+### **12.3 Encapsulation**
+
+* Private attributes: `_attr` or `__attr`
+* Getter and Setter methods
+
+### **12.4 Polymorphism**
+
+* Method overriding, operator overloading
+
+---
+
+## **13. Advanced Topics**
+
+### **13.1 Decorators**
+
+```python
+def decorator(func):
+    def wrapper():
+        print("Before")
+        func()
+        print("After")
+    return wrapper
+
+@decorator
+def greet():
+    print("Hello")
+```
+
+### **13.2 Generators**
+
+* `yield` returns iterator
+
+```python
+def gen():
+    for i in range(5):
+        yield i
+
+for x in gen():
+    print(x)
+```
+
+### **13.3 List Comprehension**
+
+```python
+nums = [i*i for i in range(5) if i%2==0]
+```
+
+### **13.4 Context Managers**
+
+* `with` for resource management (files, DB, etc.)
+
+---
+
+## **14. Python Standard Libraries**
+
+* `os` – operating system
+* `sys` – system-specific parameters
+* `math` – math functions
+* `random` – random numbers
+* `datetime` – date & time
+* `json` – JSON operations
+* `csv` – CSV handling
+* `re` – regular expressions
+* `threading` – threads
+
+---
+
+## **15. Useful Tips & Best Practices**
+
+1. Follow **PEP8 style guide**
+2. Use virtual environments: `venv`
+3. Write modular & reusable code
+4. Document code using docstrings:
+
+```python
+def add(a,b):
+    """Returns sum of a and b"""
+    return a+b
+``
