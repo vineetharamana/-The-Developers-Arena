@@ -1,0 +1,178 @@
+Phase 1 — Define the Business Problem (Most Important)
+
+Before touching data, answer:
+
+What is the goal?
+
+Who is the stakeholder?
+
+What decisions will be made?
+
+Example (Retail Sales)
+
+Identify revenue drivers
+
+Find top-performing regions
+
+Detect loss-making products
+
+Analyze seasonal trends
+
+ Deliverable: Problem Statement
+
+ Phase 2 — Data Collection
+
+Sources:
+
+Kaggle datasets
+
+Company data exports
+
+APIs
+
+Databases
+
+CSV / Excel / SQL
+
+Example:
+
+df = pd.read_csv("superstore.csv")
+
+ Phase 3 — Data Understanding (EDA – Exploration)
+
+Check structure:
+
+df.info()
+df.describe()
+df.head()
+
+
+Understand:
+
+column meanings
+
+data types
+
+missing values
+
+duplicates
+
+Check missing:
+
+df.isnull().sum()
+
+
+Check duplicates:
+
+df.duplicated().sum()
+
+ Phase 4 — Data Cleaning
+
+Real datasets are messy — always.
+
+Handle missing values
+df.fillna(0, inplace=True)
+
+Fix datatypes
+df['Date'] = pd.to_datetime(df['Date'])
+
+Remove duplicates
+df.drop_duplicates(inplace=True)
+
+Remove invalid values
+df = df[df['Sales'] > 0]
+
+Phase 5 — Exploratory Data Analysis (EDA)
+Trend Analysis
+monthly = df.groupby('Month')['Sales'].sum()
+
+Category Analysis
+df.groupby('Category')['Sales'].sum()
+
+Region Analysis
+df.groupby('Region')['Profit'].mean()
+
+Correlation
+df.corr(numeric_only=True)
+
+ Phase 6 — Data Visualization
+
+Examples:
+
+Sales Trend
+sns.lineplot(x='Month', y='Sales', data=df)
+
+Top Products
+sns.barplot(x='Sales', y='Product', data=top_products)
+
+Profit Distribution
+sns.boxplot(x='Category', y='Profit', data=df)
+
+Correlation Heatmap
+sns.heatmap(df.corr(numeric_only=True), annot=True)
+
+Phase 7 — Statistical Analysis
+
+Examples:
+
+Correlation Testing
+stats.pearsonr(df['Discount'], df['Profit'])
+
+Compare Regions
+stats.f_oneway(
+    df[df['Region']=='East']['Sales'],
+    df[df['Region']=='West']['Sales']
+)
+
+Regression
+sm.OLS(df['Profit'], sm.add_constant(df[['Discount']])).fit()
+
+  Phase 8 — Generate Business Insights
+
+Example insights:
+
+West region generates highest revenue
+
+High discounts reduce profit significantly
+
+Furniture category has high loss rate
+
+Q4 shows peak seasonal sales
+
+ This is what hiring managers really care about.
+
+Phase 9 — Reporting & Presentation
+
+Include:
+
+Objective
+
+Dataset overview
+
+Cleaning steps
+
+Key visualizations
+
+Statistical findings
+
+Business recommendations
+
+Tools:
+
+Jupyter Notebook
+
+PowerPoint
+
+PDF Report
+
+Tableau / Power BI dashboard
+
+ Phase 10 — Project Folder Structure (Industry Style)
+sales-analysis-project/
+│
+├── data/
+├── notebooks/
+├── scripts/
+├── visuals/
+├── report/
+└── README.md
