@@ -1,1 +1,478 @@
+1.Advanced pandas for data manipulation
+  A.MultiIndex (Hierarchical Index)
+Used when working with multi-dimensional data.
+df.set_index(['Region', 'Category'], inplace=True)
+
+Access data:
+df.loc['East']
+df.loc[('East', 'Furniture')]
+
+B.Query Method (Cleaner Filtering)
+df.query("Sales > 500 and Region == 'West'")
+
+Better than:
+df[(df['Sales'] > 500) & (df['Region'] == 'West')]
+
+. GroupBy Advanced Operations
+Multiple Aggregations
+df.groupby('Region').agg({
+    'Sales': ['sum', 'mean'],
+    'Profit': ['max', 'min']
+})
+
+Aggregate → reduces rows
+df.groupby('Region')['Sales'].sum()
+
+Transform → keeps same size
+df['Region_Total'] = df.groupby('Region')['Sales'].transform('sum')
+
+→ Use transform when adding new calculated columns.
+Apply Custom Functions
+def profit_ratio(x):
+    return x['Profit'].sum() / x['Sales'].sum()
+
+df.groupby('Region').apply(profit_ratio)
+
+
+ 3. Advanced Merging & Joining
+Merge Multiple DataFrames
+pd.merge(df1, df2, on='ProductID', how='inner')
+
+Types:
+inner
+
+
+left
+
+
+right
+
+
+outer
+
+
+
+Merge on Different Columns
+pd.merge(df1, df2, left_on='id1', right_on='id2')
+
+
+Join using Index
+df1.join(df2, on='ProductID')
+
+ 4. Pivot Tables & Crosstab
+Pivot Table
+pd.pivot_table(df,
+               values='Sales',
+               index='Region',
+               columns='Category',
+               aggfunc='sum')
+
+Great for:
+Sales dashboards
+
+
+KPI reports
+
+
+
+Crosstab
+pd.crosstab(df['Region'], df['Category'])
+
+Used for:
+Frequency analysis
+
+
+
+ 5. Window Functions (Rolling & Expanding)
+Rolling Mean
+df['Rolling_Avg'] = df['Sales'].rolling(window=3).mean()
+
+ Useful for:
+Moving averages
+
+
+Trend analysis
+
+
+
+Expanding Sum
+df['Cumulative'] = df['Sales'].expanding().sum()
+
+
+ 6. Handling Missing Data (Advanced)
+Fill Based on Group
+df['Sales'] = df.groupby('Region')['Sales'].transform(
+    lambda x: x.fillna(x.mean())
+)
+
+
+Interpolation
+df['Sales'] = df['Sales'].interpolate()
+
+Used for:
+Time series data
+
+
+
+ 7. Vectorized Operations (Performance Optimization)
+for i in range(len(df)):
+    df['Total'][i] = df['Sales'][i] * 2
+
+Use vectorization ✅
+df['Total'] = df['Sales'] * 2
+
+
+🔹 8. Efficient Memory Handling
+df['Category'] = df['Category'].astype('category')
+
+Helps when:
+Dataset is large
+
+
+Low memory systems
+
+
+
+ 9. Method Chaining (Clean Pipelines)
+result = (
+    df.query("Sales > 100")
+      .groupby('Region')
+      .agg({'Sales':'sum'})
+      .reset_index()
+)
+
+2. Data Visualization with Matplotlib & Seaborn
+ First — Difference Between Them
+Matplotlib
+Seaborn
+Low-level control
+High-level statistical visuals
+Fully customizable
+Beautiful default styles
+Best for custom charts
+Best for quick insights
+
+
+1. Setup
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+Load data:
+df = pd.read_csv("sales.csv")
+
+
+ 2. Line Plot (Trend Analysis)
+Perfect for:
+Monthly sales
+
+
+Revenue trends
+
+
+Growth tracking
+
+
+Matplotlib
+plt.plot(df['Month'], df['Sales'])
+plt.title("Monthly Sales Trend")
+plt.show()
+
+Seaborn
+sns.lineplot(x='Month', y='Sales', data=df)
+plt.show()
+3. Bar Plot (Category Comparison)
+Best for:
+Region sales
+
+
+Product performance
+
+
+sns.barplot(x='Region', y='Sales', data=df)
+plt.show()
+
+Grouped aggregation:
+region_sales = df.groupby('Region')['Sales'].sum().reset_index()
+sns.barplot(x='Region', y='Sales', data=region_sales)
+
+
+ 4. Histogram (Distribution Analysis)
+Understand:
+Sales distribution
+
+
+Profit spread
+
+
+sns.histplot(df['Sales'], kde=True)
+plt.show()
+
+
+ 5. Box Plot (Outlier Detection)
+Very important in business analytics.
+sns.boxplot(x='Category', y='Profit', data=df)
+plt.show()
+
+Helps find:
+Loss-making products
+
+
+Extreme values
+
+
+
+ 6. Heatmap (Correlation Analysis)
+Super useful for data exploration.
+corr = df.corr(numeric_only=True)
+sns.heatmap(corr, annot=True)
+plt.show()
+
+Shows:
+Profit vs Discount
+
+
+Sales vs Quantity
+
+
+
+ 7. Scatter Plot (Relationship Analysis)
+sns.scatterplot(x='Sales', y='Profit', data=df)
+plt.show()
+
+Used for:
+Business relationship insights
+
+
+Regression prep
+
+
+
+ 8. Pair Plot (Exploratory Analysis)
+sns.pairplot(df)
+plt.show()
+
+Best for:
+Initial data understanding
+
+
+
+ 9. Matplotlib Customization (Advanced)
+Titles:
+plt.title("Sales Analysis")
+
+Labels:
+plt.xlabel("Month")
+plt.ylabel("Revenue")
+
+Grid:
+plt.grid(True)
+
+Figure size:
+plt.figure(figsize=(10,5))
+
+
+ 10. Real Project Visualization Workflow (Sales Analysis)
+Step 1: Monthly Trend
+monthly = df.groupby('Month')['Sales'].sum().reset_index()
+sns.lineplot(x='Month', y='Sales', data=monthly)
+plt.show()
+
+Step 2: Top Products
+top_products = df.groupby('Product')['Sales'].sum().nlargest(10).reset_index()
+sns.barplot(x='Sales', y='Product', data=top_products)
+
+Step 3: Profit vs Discount
+sns.scatterplot(x='Discount', y='Profit', data=df)
+
+3.Statistical analysis with Python
+1. Libraries You’ll Use
+import pandas as pd
+import numpy as np
+import scipy.stats as stats
+import statsmodels.api as sm
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+
+ 2. Descriptive Statistics (Understand Your Data First)
+Basic Summary
+df.describe()
+
+Gives:
+mean
+
+
+std
+
+
+min/max
+
+
+quartiles
+
+
+
+Additional Measures
+df['Sales'].mean()
+df['Sales'].median()
+df['Sales'].mode()
+df['Sales'].std()
+df['Sales'].var()
+
+ Use when:
+analyzing sales distribution
+
+
+comparing regions/products
+
+
+
+Skewness & Kurtosis
+df['Sales'].skew()
+df['Sales'].kurt()
+
+Meaning:
+Skew → data imbalance
+
+
+Kurtosis → outlier presence
+
+
+
+3. Probability Distributions
+Normal Distribution Check
+sns.histplot(df['Sales'], kde=True)
+
+Statistical test:
+stats.shapiro(df['Sales'])
+
+👉 Helps decide:
+parametric vs non-parametric tests
+
+
+
+ 4. Correlation Analysis
+df.corr(numeric_only=True)
+
+Pearson correlation:
+stats.pearsonr(df['Sales'], df['Profit'])
+
+Spearman (non-linear):
+stats.spearmanr(df['Sales'], df['Profit'])
+
+Used for:
+feature selection
+
+
+business relationships
+
+
+
+ 5. Hypothesis Testing
+One Sample T-Test
+stats.ttest_1samp(df['Sales'], popmean=500)
+
+Example:
+ 👉 Is average sales significantly different from 500?
+
+Independent T-Test
+stats.ttest_ind(df[df['Region']=='East']['Sales'],
+                df[df['Region']=='West']['Sales'])
+
+Compare:
+region performance
+
+
+product categories
+
+
+
+Paired T-Test
+stats.ttest_rel(before_sales, after_sales)
+
+Used for:
+before vs after marketing campaigns
+
+
+ 6. ANOVA (Compare Multiple Groups)
+stats.f_oneway(
+    df[df['Region']=='East']['Sales'],
+    df[df['Region']=='West']['Sales'],
+    df[df['Region']=='South']['Sales']
+)
+
+Used when:
+comparing more than 2 regions
+
+
+7. Regression Analysis
+Linear Regression (Statsmodels)
+X = df[['Discount']]
+y = df['Sales']
+
+X = sm.add_constant(X)
+
+model = sm.OLS(y, X).fit()
+print(model.summary())
+
+Gives:
+p-values
+
+
+R-squared
+
+
+coefficients
+
+
+ Used for:
+sales prediction
+
+
+impact analysis
+ 8. Confidence Intervals
+stats.t.interval(
+    confidence=0.95,
+    df=len(df['Sales'])-1,
+    loc=np.mean(df['Sales']),
+    scale=stats.sem(df['Sales'])
+)
+
+Used for:
+business decision reliability
+
+
+
+ 9. Outlier Detection
+Z-score
+df['z_score'] = stats.zscore(df['Sales'])
+outliers = df[df['z_score'] > 3]
+
+IQR Method
+Q1 = df['Sales'].quantile(0.25)
+Q3 = df['Sales'].quantile(0.75)
+IQR = Q3 - Q1
+
+df[(df['Sales'] < Q1 - 1.5*IQR) |
+   (df['Sales'] > Q3 + 1.5*IQR)]
+
+
+Real Project Example (Sales Analysis Workflow)
+Step 1: Distribution Check
+sns.histplot(df['Sales'], kde=True)
+
+Step 2: Correlation
+stats.pearsonr(df['Discount'], df['Profit'])
+
+Step 3: Regional Comparison
+stats.f_oneway(
+    df[df['Region']=='East']['Profit'],
+    df[df['Region']=='West']['Profit'],
+    df[df['Region']=='South']['Profit']
+)
+
+Step 4: Regression
+model = sm.OLS(df['Profit'], sm.add_constant(df[['Discount']])).fit()
+
 
