@@ -1,0 +1,198 @@
+Step 1 — Understand Before Loading
+
+Never load blindly.
+
+Check file size first:
+
+ls -lh sales.csv
+
+
+Preview data:
+
+head sales.csv
+
+
+Or in Python:
+
+df = pd.read_csv("sales.csv", nrows=1000)
+df.info()
+
+
+Goals:
+
+identify columns
+
+detect missing values
+
+check datatypes
+
+find messy fields
+
+Step 2 — Load Data Efficiently
+Load only required columns
+df = pd.read_csv(
+    "sales.csv",
+    usecols=['Date','Region','Sales','Profit']
+)
+
+Define datatypes while loading
+dtype = {
+    'Region':'category',
+    'Sales':'float32',
+    'Profit':'float32'
+}
+
+df = pd.read_csv("sales.csv", dtype=dtype)
+
+
+Huge memory savings.
+
+Step 3 — Chunk Processing (Industry Standard)
+
+Instead of loading full dataset:
+
+chunks = pd.read_csv("sales.csv", chunksize=100000)
+
+total_sales = 0
+
+for chunk in chunks:
+    total_sales += chunk['Sales'].sum()
+
+print(total_sales)
+
+
+Use for:
+
+large CSV files
+
+server logs
+
+financial transactions
+
+ Step 4 — Clean Data Incrementally
+
+Inside chunk loop:
+
+for chunk in pd.read_csv("sales.csv", chunksize=50000):
+
+    chunk.dropna(inplace=True)
+    chunk = chunk[chunk['Sales'] > 0]
+
+
+Advantages:
+
+avoids memory overflow
+
+faster cleaning
+
+ Step 5 — Aggregate While Processing
+results = []
+
+for chunk in pd.read_csv("sales.csv", chunksize=100000):
+
+    summary = chunk.groupby('Region')['Sales'].sum()
+    results.append(summary)
+
+final = pd.concat(results).groupby(level=0).sum()
+
+
+This is how real analytics pipelines work.
+
+ Step 6 — Switch File Formats (Huge Performance Boost)
+
+
+df.to_parquet("sales.parquet")
+df = pd.read_parquet("sales.parquet")
+
+
+Benefits:
+
+faster reads
+
+compressed storage
+
+column-based loading
+
+Step 7 — Use Better Tools for Very Large Data
+Dask (Pandas-like but scalable)
+import dask.dataframe as dd
+
+df = dd.read_csv("sales.csv")
+df.groupby('Region')['Sales'].sum().compute()
+
+ DuckDB (Extremely Powerful)
+import duckdb
+
+duckdb.query("""
+SELECT Region, SUM(Sales)
+FROM 'sales.csv'
+GROUP BY Region
+""")
+
+
+Often faster than pandas.
+
+ Polars (Modern High-Speed DataFrame)
+import polars as pl
+
+df = pl.read_csv("sales.csv")
+df.group_by('Region').agg(pl.col('Sales').sum())
+
+Step 8 — Use Databases (Real Industry Approach)
+
+Load data into:
+
+PostgreSQL
+
+MySQL
+
+BigQuery
+
+Snowflake
+
+Then query:
+
+SELECT Region, SUM(Sales)
+FROM sales
+GROUP BY Region;
+
+
+Load only aggregated results into Python.
+
+ Step 9 — Handle Real-World Data Problems
+
+You WILL see:
+
+Problem	Solution
+missing values	fillna / dropna
+duplicate rows	drop_duplicates
+encoding issues	encoding='latin1'
+mixed datatypes	converters
+timezone errors	pd.to_datetime
+corrupt rows	on_bad_lines='skip'
+
+Example:
+
+pd.read_csv("sales.csv", on_bad_lines='skip')
+
+ Step 10 — Monitor Memory Usage
+df.memory_usage(deep=True)
+
+
+Convert:
+
+df['Category'] = df['Category'].astype('category')
+
+ Real Industry Example (1M+ Sales Records)
+
+Workflow:
+
+1️⃣ Load sample rows
+2️⃣ define datatypes
+3️⃣ process in chunks
+4️⃣ clean data inside loop
+5️⃣ aggregate results
+6️⃣ store final dataset in parquet
+7️⃣ analyze summarized data
+
+
