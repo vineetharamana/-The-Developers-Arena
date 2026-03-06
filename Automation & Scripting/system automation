@@ -1,0 +1,171 @@
+1.Use Python for System Automation:----
+
+Python is popular for automation because it is:
+
+Simple and readable
+
+Cross-platform (Linux, Windows, macOS)
+
+Has powerful libraries for system operations
+
+Integrates easily with DevOps tools
+
+2.File Automation:-----
+
+List Files in a Directory
+
+import os
+
+path = "/home/user/documents"
+
+files = os.listdir(path)
+
+for file in files:
+    print(file)
+
+3 Automating Linux Commands:---
+
+Python can run Linux shell commands.
+
+Example: Run df -h command
+import subprocess
+
+result = subprocess.run(["df", "-h"], capture_output=True, text=True)
+
+print(result.stdout)
+
+4 System Monitoring Script
+
+Example: Monitor CPU and Memory usage
+
+First install:
+
+pip install psutil
+
+Python script:
+
+import psutil
+
+cpu = psutil.cpu_percent(interval=1)
+memory = psutil.virtual_memory().percent
+
+print("CPU Usage:", cpu, "%")
+print("Memory Usage:", memory, "%")
+
+Use cases:
+
+Server monitoring
+
+Alert systems
+
+DevOps dashboards
+
+5. Automatic Backup Script
+
+Example: Backup a folder
+
+import shutil
+
+source = "/home/user/data"
+destination = "/home/user/backup"
+
+shutil.copytree(source, destination)
+
+print("Backup completed")
+
+Use cases:
+
+Daily backup
+
+Log archive
+
+Data protection
+
+6. Automating Log Cleanup
+
+Example: Delete old log files
+
+import os
+import time
+
+path = "/var/log/myapp"
+
+for file in os.listdir(path):
+    file_path = os.path.join(path, file)
+
+    if os.stat(file_path).st_mtime < time.time() - 7 * 86400:
+        os.remove(file_path)
+        print("Deleted:", file)
+
+Deletes logs older than 7 days.
+
+7. Scheduling Automation Tasks
+
+Use cron or Python scheduler.
+
+Using Cron (Linux)
+
+Edit cron:
+
+crontab -e
+
+Run script every day:
+
+0 2 * * * python3 backup.py
+
+8. Real DevOps Use Cases
+
+Python automation is used for:
+
+Infrastructure automation
+
+Provision servers
+
+Configure systems
+
+CI/CD pipelines
+
+Build scripts
+
+Deployment automation
+
+Monitoring
+
+Server health checks
+
+Alert notifications
+
+Log analysis
+
+Parse logs
+
+Detect errors
+
+9. Real Example DevOps Script
+
+Check disk usage and send alert.
+
+import psutil
+
+disk = psutil.disk_usage('/')
+
+if disk.percent > 80:
+    print("Warning: Disk usage above 80%")
+else:
+    print("Disk usage normal")
+    
+10. Python Automation Tools Used in Industry
+
+Ansible (Python based automation)
+
+Fabric (remote command automation)
+
+Paramiko (SSH automation)
+
+Airflow (workflow automation)
+
+11.What is system automation using Python?
+
+Answer:
+
+System automation using Python means writing scripts to automatically perform system administration tasks such as file management, system monitoring, log analysis, backups, and service management. Python libraries like os, subprocess, and psutil help interact with the operating system and automate repetitive tasks.
