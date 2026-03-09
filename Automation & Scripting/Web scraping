@@ -1,1 +1,155 @@
+What is Web Scraping:-----
 
+Web Scraping means automatically extracting data from websites.
+
+Example:
+Extract data like:
+
+Product prices
+
+News headlines
+
+Job listings
+
+Weather data
+
+Instead of manually copying data, a Python script collects it automatically.
+
+Example website data:
+
+Product	Price
+Laptop	₹50000
+Mobile	₹20000
+
+
+2️ What is Data Extraction:----
+
+Data Extraction means retrieving useful information from any data source such as:
+
+Websites
+
+PDFs
+
+Databases
+
+APIs
+
+Logs
+
+Example:
+
+Extract emails from web pages
+
+Extract tables from HTML
+
+Extract data from PDF reports
+
+Web scraping is one type of data extraction.
+
+-- Python Tools for Web Scraping
+1️BeautifulSoup
+
+Used for HTML parsing.
+
+Install:
+
+pip install beautifulsoup4
+pip install requests
+
+Example:
+
+import requests
+from bs4 import BeautifulSoup
+
+url = "https://example.com"
+
+response = requests.get(url)
+
+soup = BeautifulSoup(response.text, "html.parser")
+
+title = soup.title.text
+
+print("Page Title:", title)
+
+Output:
+
+Page Title: Example Domain
+2️Scrapy:---
+
+A powerful framework for large scraping projects.
+
+Install:
+
+pip install scrapy
+
+Create project:
+
+scrapy startproject myproject
+
+Run spider:
+
+scrapy crawl spidername
+3️ Selenium:----
+
+Used when websites load data using JavaScript.
+
+Install:
+
+pip install selenium
+
+Example:
+
+from selenium import webdriver
+
+driver = webdriver.Chrome()
+
+driver.get("https://example.com")
+
+print(driver.title)
+
+driver.quit()
+4️Puppeteer (Node.js):---
+
+You already used Puppeteer in your Docker scraping project, which is great for scraping dynamic websites.
+
+---Web Scraping Workflow
+Website
+   ↓
+HTTP Request (requests)
+   ↓
+HTML Page
+   ↓
+Parse HTML (BeautifulSoup)
+   ↓
+Extract Data
+   ↓
+Save Data (CSV / JSON / Database)
+
+from bs4 import BeautifulSoup
+
+url = "https://news.ycombinator.com"
+
+response = requests.get(url)
+
+soup = BeautifulSoup(response.text, "html.parser")
+
+titles = soup.find_all("span", class_="titleline")
+
+for title in titles:
+    print(title.text)
+
+data = ["News1", "News2", "News3"]
+
+with open("news.csv", "w") as file:
+    writer = csv.writer(file)
+    for item in data:
+        writer.writerow([item])
+
+
+Example:
+
+headers = {
+    "User-Agent": "Mozilla/5.0"
+}
+
+requests.get(url, headers=headers)
