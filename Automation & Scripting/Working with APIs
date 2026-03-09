@@ -1,0 +1,222 @@
+1. What is an API?
+
+API (Application Programming Interface) is a way for applications to communicate.
+
+Example:
+
+Your Application → API Request → Server
+                              ↓
+                       JSON Response
+Example API request:
+
+https://api.github.com/users/octocat
+
+Response:
+
+{
+ "login": "octocat",
+ "id": 1,
+ "followers": 5000
+}
+Types of Web Services
+1. REST API
+
+Most common modern API.
+
+Features:
+
+Uses HTTP methods
+
+Returns JSON or XML
+
+Stateless
+
+Example endpoints:
+
+GET /users
+POST /users
+PUT /users/1
+DELETE /users/1
+2. SOAP Web Services
+
+Older enterprise protocol.
+
+Features:
+
+Uses XML
+
+Strict standards
+
+Used in banking systems
+
+3. GraphQL
+
+Modern API query language.
+
+Example:
+
+{
+ user(id:1) {
+  name
+  email
+ }
+}
+3️ HTTP Methods:===
+Method	Purpose
+GET	Retrieve data
+POST	Create data
+PUT	Update data
+DELETE	Remove data
+
+Example:
+
+GET https://api.example.com/users
+4️ Working with APIs in Python:==
+
+Most common library: requests
+
+Install:
+
+pip install requests
+5️Example: GET Request:===
+import requests
+
+url = "https://api.github.com/users/octocat"
+
+response = requests.get(url)
+
+data = response.json()
+
+print(data["login"])
+print(data["followers"])
+
+Output example:
+
+octocat
+5000
+6️ Example: POST Request:--
+
+Send data to API.
+
+import requests
+
+url = "https://jsonplaceholder.typicode.com/posts"
+
+data = {
+    "title": "DevOps",
+    "body": "Learning APIs",
+    "userId": 1
+}
+
+response = requests.post(url, json=data)
+
+print(response.json())
+7️ Example: API with Headers:---
+
+Many APIs require authentication headers.
+
+Example:
+
+headers = {
+ "Authorization": "Bearer YOUR_TOKEN"
+}
+
+response = requests.get(url, headers=headers)
+8️ Example: API with Query Parameters:---
+params = {
+ "q": "python",
+ "page": 1
+}
+
+response = requests.get(url, params=params)
+
+Request becomes:
+
+https://api.example.com/search?q=python&page=1
+9️JSON Data Handling:----
+
+Most APIs return JSON.
+
+Example:
+
+data = response.json()
+
+print(data)
+
+Example JSON:
+
+{
+ "name": "Vineetha",
+ "role": "DevOps Engineer"
+}
+
+Access values:
+
+print(data["name"])
+10. Error Handling:----
+
+Always check status codes.
+
+Code	Meaning
+200	Success
+201	Created
+400	Bad request
+401	Unauthorized
+404	Not found
+500	Server error
+
+Example:
+
+if response.status_code == 200:
+    print("Success")
+else:
+    print("Error:", response.status_code)
+ Real DevOps API Examples
+
+APIs commonly used in DevOps:
+
+GitHub API
+
+Get repositories, commits, pipelines.
+
+Example:
+
+https://api.github.com/users/{username}/repos
+AWS APIs
+
+Manage cloud services programmatically.
+
+Example operations:
+
+Create EC2
+
+List S3 buckets
+
+Start instances
+
+Kubernetes API
+
+Control cluster resources.
+
+Example:
+
+GET /api/v1/pods
+Example Automation Workflow
+Python Script
+     ↓
+Call API
+     ↓
+Get JSON Data
+     ↓
+Process Data
+     ↓
+Store in Database / File Example: Fetch Weather API
+import requests
+
+url = "https://api.open-meteo.com/v1/forecast?latitude=17&longitude=78&current_weather=true"
+
+response = requests.get(url)
+
+data = response.json()
+
+print(data["current_weather"])
