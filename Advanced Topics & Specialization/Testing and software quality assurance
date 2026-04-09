@@ -1,0 +1,102 @@
+What is Software Testing?
+
+Software Testing is the process of evaluating a system or application to find defects and ensure it works as expected.
+
+Objectives:
+Find bugs/errors
+Ensure requirements are met
+Improve quality
+Verify performance & security
+🔸 Types of Software Testing
+ 1. Functional Testing
+
+Tests what the system does.
+
+Unit Testing → Individual components
+Integration Testing → Combined modules
+System Testing → Entire system
+Acceptance Testing → User validation
+
+ Example: Checking login functionality works correctly.
+
+ 2. Non-Functional Testing
+
+Tests how the system performs.
+
+Performance Testing (speed, load)
+Security Testing (data protection)
+Usability Testing (user experience)
+Compatibility Testing (browser, device)
+
+ Example: Checking website load under heavy traffic.
+
+3. Manual Testing
+Done by humans without tools
+Exploratory and user-based testing
+4. Automation Testing
+Uses tools/scripts (e.g., Selenium)
+Faster and repeatable
+ 5. Other Testing Types
+Regression Testing → After changes
+Smoke Testing → Basic checks
+Sanity Testing → Quick validation
+Beta Testing → Real users
+🔹 2. What is Software Quality Assurance (SQA)?
+
+SQA is a process-oriented approach that ensures quality in every phase of development, not just testing.
+
+ Testing = Finding bugs
+SQA = Preventing bugs
+
+🔸Key Activities in SQA
+ 1. Requirement Analysis
+Ensure requirements are clear and testable
+ 2. Test Planning
+Define strategy, tools, timeline
+ 3. Test Case Design
+Write test cases and scenarios
+4. Test Execution
+Run test cases and log defects
+ 5. Defect Tracking
+Track bugs using tools (e.g., JIRA)
+ 6. Test Reporting
+Generate reports and metrics
+🔹 3. Difference: Testing vs SQA
+Aspect	Testing	SQA
+Focus	Product	Process
+Goal	Find defects	Prevent defects
+Timing	After development	Throughout SDLC
+Approach	Reactive	Proactive
+🔹 4. Software Testing Life Cycle (STLC)
+Phases:
+Requirement Analysis
+Test Planning
+Test Case Development
+Environment Setup
+Test Execution
+Test Closure
+🔹 5. SQA Methodologies
+🔸 1. Waterfall Model
+Testing happens after development
+🔸 2. Agile Model
+Continuous testing in every sprint
+Dev + QA collaboration
+🔹 6. Important Testing Concepts
+ Black Box Testing
+No knowledge of code
+Focus on inputs/outputs
+ White Box Testing
+Knowledge of internal code
+Logic and structure testing
+ Grey Box Testing
+Partial knowledge
+🔹 7. Popular Testing Tools
+Selenium → Automation testing
+JUnit → Unit testing
+TestNG → Java testing framework
+JMeter → Performance testing
+Postman → API testing
+🔹 8. Metrics in Testing
+Test Coverage
+Defect Density
+Test Case Pass Rate
