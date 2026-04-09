@@ -1,0 +1,48 @@
+--->What is Concurrency
+Concurrency means handling multiple tasks at the same time, but not necessarily executing them simultaneous
+--->What is Parallel Programming?
+Parallelism means executing multiple tasks literally at the same time.
+--->Concurrency in Programming
+Common Techniques:
+Threads
+Async / Await
+Event loops
+Example (Python - Concurrency)
+import asyncio
+
+async def task1():
+    print("Task 1 started")
+    await asyncio.sleep(2)
+    print("Task 1 done")
+
+async def task2():
+    print("Task 2 started")
+    await asyncio.sleep(1)
+    print("Task 2 done")
+
+async def main():
+    await asyncio.gather(task1(), task2())
+
+asyncio.run(main())
+
+--->Tasks run concurrently (not truly parallel)
+
+🔹 4. Parallel Programming in Python
+Using multiprocessing:
+from multiprocessing import Process
+
+def task():
+    print("Running in parallel")
+
+if __name__ == "__main__":
+    p1 = Process(target=task)
+    p2 = Process(target=task)
+
+    p1.start()
+    p2.start()
+
+    p1.join()
+    p2.join()
+
+Runs on multiple CPU cores
+  
