@@ -1,0 +1,213 @@
+--->What is Concurrency
+Concurrency means handling multiple tasks at the same time, but not necessarily executing them simultaneously.
+...> Example:
+A web server handling multiple requests
+While one request waits for DB response, another request is processed
+--->What is Parallel Programming?
+Parallelism means executing multiple tasks literally at the same time.
+...>Example:
+Processing large datasets using multiple threads
+Running ML computations on multiple cores
+---> Concurrency in Programming
+Common Techniques:
+Threads
+Async / Await
+Event loops
+Example (Python - Concurrency)
+import asyncio
+
+async def task1():
+    print("Task 1 started")
+    await asyncio.sleep(2)
+    print("Task 1 done")
+
+async def task2():
+    print("Task 2 started")
+    await asyncio.sleep(1)
+    print("Task 2 done")
+
+async def main():
+    await asyncio.gather(task1(), task2())
+
+asyncio.run(main())
+---> Parallel Programming in Python
+Using multiprocessing:
+from multiprocessing import Process
+
+def task():
+    print("Running in parallel")
+
+if __name__ == "__main__":
+    p1 = Process(target=task)
+    p2 = Process(target=task)
+
+    p1.start()
+    p2.start()
+
+    p1.join()
+    p2.join()
+---->Where It Is Used (Real World)
+Concurrency
+Web servers (e.g., handling multiple users)
+APIs
+I/O operations (file, DB, network)
+⚡ Parallelism
+Data processing (Big Data, Spark)
+Machine Learning
+Scientific computing
+
+----> In DevOps & Cloud 
+Since you're an AWS DevOps Engineer, this is where it matters:
+
+Docker containers running multiple services concurrently
+Kubernetes handling parallel workloads
+CI/CD pipelines running jobs in parallel
+Load balancers managing concurrent requests
+🔹 8. Quick Summary
+Concurrency = Managing many tasks efficiently
+Parallelism = Executing many tasks simultaneously
+Both improve performance & scalability
+
+🔹 1. Advanced Database Operations
+ a) Indexing (Very Important)
+
+Indexes improve query speed by avoiding full table scans.
+
+Types of Indexes:
+Single-column index
+Composite index (multiple columns)
+Unique index
+Full-text index
+Example:
+CREATE INDEX idx_user_email ON users(email);
+
+ b) Joins Optimization
+
+Efficient joins reduce execution time.
+
+Types:
+INNER JOIN
+LEFT JOIN
+RIGHT JOIN
+FULL JOIN
+Tips:
+Join on indexed columns
+Avoid unnecessary joins
+Use proper join order
+ c) Transactions
+
+Ensure data consistency (ACID properties)
+
+Atomicity
+Consistency
+Isolation
+Durability
+Example:
+BEGIN;
+UPDATE accounts SET balance = balance - 100 WHERE id = 1;
+UPDATE accounts SET balance = balance + 100 WHERE id = 2;
+COMMIT;
+ d) Stored Procedures
+
+Reusable SQL logic inside DB
+
+CREATE PROCEDURE GetUsers()
+BEGIN
+  SELECT * FROM users;
+END;
+ e) Views
+
+Virtual tables based on queries
+
+CREATE VIEW active_users AS
+SELECT * FROM users WHERE status = 'active';
+ f) Partitioning
+
+Split large tables into smaller parts
+
+Types:
+Range partitioning
+Hash partitioning
+List partitioning
+
+🔹 2. Query Optimization Techniques
+⚡ a) Use EXPLAIN
+
+Analyze query execution plan
+
+EXPLAIN SELECT * FROM orders WHERE user_id = 10;
+
+
+Index usage
+Scan type
+Cost
+⚡ b) Avoid SELECT *
+
+Bad:
+
+SELECT * FROM users;
+
+Good:
+
+SELECT name, email FROM users;
+⚡ c) Use WHERE Clauses Efficiently
+Filter early
+Use indexed columns
+⚡ d) Limit Data
+SELECT * FROM users LIMIT 10;
+⚡ e) Avoid N+1 Queries
+
+Bad (multiple queries):
+
+SELECT * FROM users;
+SELECT * FROM orders WHERE user_id = 1;
+
+🔹 3. Database Optimization Techniques
+a) Normalization vs Denormalization
+Normalization
+Removes redundancy
+Improves consistency
+Denormalization
+Improves read performance
+Adds redundancy
+  b) Caching
+
+Store frequently accessed data
+
+Tools:
+Redis
+Memcached
+ c) Connection Pooling
+
+Reuse DB connections instead of creating new ones
+
+Improves performance under heavy load
+
+ d) Replication
+Master → Slave replication
+Read from replicas
+
+ Improves scalability
+
+e) Sharding
+
+Split database across multiple servers
+
+👉 Used for very large systems (e.g., social media apps)
+
+🔹 4. Performance Bottlenecks & Fixes
+Problem	Solution
+Slow queries	Indexing + EXPLAIN
+High latency	Caching
+Too many connections	Connection pooling
+Large tables	Partitioning / Sharding
+🔹 5. Real-World
+In AWS:
+Use Amazon RDS
+Use Amazon Aurora
+Enable:
+Read replicas
+Auto-scaling
+Performance insights
+
+
