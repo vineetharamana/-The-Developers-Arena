@@ -1,0 +1,69 @@
+.Software Development Methodologies
+Software Development Methodologies are structured approaches used to plan, develop, test, and deliver software projects efficiently.
+They help teams organize work, manage time, reduce risks, and deliver quality software.
+Common Software Development Methodologies
+1. Waterfall Model
+This is a traditional and linear approach where each phase is completed before moving to the next one.
+Phases:
+Requirement Analysis
+Design
+Development
+Testing
+Deployment
+Maintenance
+Advantages
+Simple and easy to understand
+Good for small and fixed projects
+Disadvantages
+Difficult to make changes later
+Not suitable for changing requirements
+2. Agile Methodology
+Agile is an iterative and flexible approach where development happens in small parts called sprints.
+Each sprint usually lasts 1–4 weeks.
+Advantages
+Quick delivery
+Easy to handle changing requirements
+Better customer feedback
+Disadvantages
+Requires continuous communication
+Can be difficult without proper planning
+3. Scrum
+Scrum is a framework under Agile.
+It uses short development cycles called sprints and includes regular meetings like:
+Sprint Planning
+Daily Standup
+Sprint Review
+Retrospective
+Roles:
+Product Owner
+Scrum Master
+Development Team
+4. DevOps
+DevOps combines development and operations to improve collaboration and automate software delivery.
+Focus areas:
+CI/CD
+Automation
+Monitoring
+Fast deployment
+Tools often used:
+Git
+Jenkins
+Docker
+Kubernetes
+5. Spiral Model
+This model combines design and prototyping with strong risk analysis.
+It is used for large and high-risk projects.
+Advantages
+Better risk management
+Suitable for complex systems
+Disadvantages
+Expensive
+Complex to manage
+6. V-Model (Verification and Validation Model)
+This is an extension of the Waterfall model where testing is planned parallel to development.
+Each development stage has a corresponding testing stage.
+Advantage
+Strong testing process
+Disadvantage
+Not flexible for changing requirements
+
