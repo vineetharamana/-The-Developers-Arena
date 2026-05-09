@@ -1,0 +1,81 @@
+Enterprise Application Architecture
+Enterprise application architecture is the structured design of large-scale business applications used by organizations or enterprises.
+It defines how an application should be built, how modules should connect, how data should flow, and how security, scalability, and maintenance should be handled.
+Definition:-
+Enterprise-level applications are large software systems such as:
+Banking systems
+E-commerce platforms
+Hospital management systems
+ERP systems
+CRM applications
+These applications must be reliable, secure, and scalable, so proper architecture is very important.
+Main Layers of Enterprise Application Architecture
+1. Presentation Layer (UI Layer)
+This is the part users can see and interact with.
+Examples:
+Web pages
+Mobile app screens
+Dashboards
+Example:
+Login page
+User profile page
+
+2. Business Logic Layer (Application Layer)
+This layer contains the main business rules and logic.
+Examples:
+Salary calculation
+Order processing
+Leave approval logic
+Example:
+“If employee leave is more than 10 days, manager approval is required.”
+
+3. Data Access Layer
+This layer communicates with the database.
+Examples:
+Insert data
+Update records
+Fetch reports
+Example:
+MySQL/PostgreSQL queries
+
+4. Database Layer
+This is where actual data is stored.
+Examples:
+Customer details
+Employee records
+Product information
+
+Important Characteristics
+Scalability
+The application should handle more users without becoming slow.
+
+Security
+Data must be protected.
+Examples:
+Authentication
+Authorization
+Encryption
+
+Maintainability
+Future changes and updates should be easy to implement.
+
+Availability
+The application should remain online and accessible most of the time.
+
+Common Architecture Types
+Monolithic Architecture
+Everything is built into a single application.
+It is simple but difficult to manage at large scale.
+
+Microservices Architecture
+The application is divided into small independent services.
+Examples:
+Payment service
+User service
+Notification service
+Large companies often use this approach.
+
+Service-Oriented Architecture (SOA)
+Different systems communicate through services.
+
+
