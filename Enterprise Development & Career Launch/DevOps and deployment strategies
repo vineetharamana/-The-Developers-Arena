@@ -1,0 +1,83 @@
+DevOps and Deployment Strategies
+DevOps is a combination of Development (Dev) and Operations (Ops).
+It is a set of practices that helps development and operations teams work together to build, test, deploy, and maintain applications faster and more reliably.
+Definition
+DevOps focuses on:
+Faster software delivery
+Continuous integration and deployment
+Better collaboration between teams
+Automation of manual tasks
+Improved monitoring and reliabilit
+DevOps Lifecycle
+1. Plan
+Requirements gathering and planning the project
+Tools:
+Jira
+Trello
+2. Develop
+Writing application code
+Tools:
+Visual Studio Code
+Git
+3. Build
+Compile source code and create build artifacts
+Tools:
+Maven
+Gradle
+4. Test
+Run automated testing
+Tools:
+Selenium
+JUnit
+5. Release
+Prepare application for deployment
+Tools:
+Jenkins
+6. Deploy
+Deploy application to servers or cloud
+Tools:
+Docker
+Kubernetes
+Amazon Web Services
+7. Monitor
+Track application performance and issues
+Tools:
+Prometheus
+Grafana
+Deployment Strategies
+Deployment strategy means how a new version of an application is released to users.
+Common Deployment Strategies
+1. Recreate Deployment
+Old version is stopped first, then the new version is deployed.
+Advantage:
+Simple to implement
+Disadvantage:
+Causes downtime
+2. Rolling Deployment
+New version is deployed gradually by replacing old servers one by one.
+Advantage:
+No downtime
+Disadvantage:
+Both old and new versions run together temporarily
+3. Blue-Green Deployment
+Two environments are maintained:
+Blue = Current live version
+Green = New version
+Traffic is switched from Blue to Green after testing.
+Advantage:
+Very safe and quick rollback
+Disadvantage:
+Needs double infrastructure
+4. Canary Deployment
+New version is released to a small group of users first.
+If successful, it is released to all users.
+Advantage:
+Low risk
+Disadvantage:
+Needs monitoring and traffic control
+5. A/B Testing Deployment
+Different versions are shown to different users to compare performance.
+Advantage:
+Useful for testing user behavior
+Disadvantage:
+More complex setup
